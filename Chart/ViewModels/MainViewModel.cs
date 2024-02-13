@@ -1,5 +1,6 @@
 ﻿using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -33,4 +34,10 @@ public partial class MainViewModel : ObservableObject
 
         });
     }
+
+    [ObservableProperty]
+    private bool channelConfigurationListIsOpen =   false;
+
+    [RelayCommand]
+    private void ChannelConfigurationButtonPressed() => ChannelConfigurationListIsOpen ^= true;
 }

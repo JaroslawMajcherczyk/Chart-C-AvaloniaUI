@@ -2,8 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="650"
-			 Width="800" Height="650"
+			 mc:Ignorable="d" 
+			 Width="1200" Height="850"
 			 xmlns:vm="using:Chart"
 
 			 xmlns:local="clr-namespace:Chart.Views;assembly=Chart"
@@ -26,12 +26,60 @@
 			<Setter Property="Foreground" Value="White"></Setter>
 
 		</Style>
+
+		<Style Selector="Border.channel">
+			<Setter Property="Height" Value="0"></Setter>
+			<Setter Property="Width" Value="0"></Setter>
+			<Setter Property="Transitions">
+				<Transitions>			
+				<DoubleTransition Property="Width" Duration="0:0:0.3" Easing="QuadraticEaseIn"/>
+				<DoubleTransition Property="Height" Duration="0:0:0.3" Easing="QuadraticEaseIn"/>
+				</Transitions>
+			</Setter>
+		</Style>
+
+		<Style Selector="Border.channel.open">
+			<Setter Property="Height" Value="800"></Setter>
+			<Setter Property="Width" Value="300"></Setter>
+
+		</Style>
+		
 	</UserControl.Styles>
 
-
-	<Grid  RowDefinitions="Auto,*,Auto">
+		<!-- Main Grid-->
+	<Grid  Name="MainGrid" RowDefinitions="Auto,*,Auto">
+		
+		<!-- Channel Configuration Popup Close-->
+		<Border 
+				 x:DataType="vm:ViewModels.MainViewModel"
+				IsVisible="{Binding ChannelConfigurationListIsOpen}"
+				PointerPressed="InputElement_OnPointerPressed"
+				Grid.Row="0" 
+				Grid.RowSpan="3" 
+				Background="Transparent" 
+				ZIndex="1">
+		
+		</Border>
+		
+		
+		<!-- Channel Configuration Popup-->
+		<Border 
+			Grid.Row="0"
+			x:DataType="vm:ViewModels.MainViewModel"
+				Classes="channel"
+				Classes.open="{Binding ChannelConfigurationListIsOpen}"
+				Name="ChannelConfigurationPopup"
+				Grid.RowSpan="3" Background="red" ZIndex="2" 
+				HorizontalAlignment="Left" 
+				VerticalAlignment="Bottom"
+				Margin="15,0,0,18"
+				>
+			<Label> test</Label>
+		</Border>
+		
+		
 		<!--Navbar-->
-		<Grid Grid.Row="0" Background="{DynamicResource MidGrayBrush}" Height="40"
+		<Grid  Grid.Row="0" Background="{DynamicResource MidGrayBrush}" Height="40"
 			  ColumnDefinitions="Auto,Auto,*,Auto,Auto">
 
 			<!--Buttons styles in navbar-->
@@ -39,7 +87,7 @@
 				<Style Selector="Button">
 					<Setter Property="Background" Value="Transparent"></Setter>
 					<Setter Property="Padding" Value="15"></Setter>
-					<Setter Property="Width" Value="40"></Setter>
+					<Setter Property="Width" Value="45"></Setter>
 				</Style>
 				<!--Remove defoult hover on button-->
 				<Style Selector="Button:pointerover /template/ ContentPresenter">
@@ -193,8 +241,8 @@
 		</Grid>
 		<!--Footer-->
 		<Grid Margin="8" ColumnDefinitions="Auto,Auto,*,Auto,Auto,Auto,Auto,Auto" Grid.Row="2" Background="White" Height="50">
-			<Button Margin="0,0,8,0" Grid.Column="0">Stereo</Button>
-			<Button Grid.Column="1">Audio</Button>
+			<Button x:DataType="vm:ViewModels.MainViewModel" Name="ChannelConfigurationButton" Command="{Binding ChannelConfigurationButtonPressedCommand}" Margin="0,0,8,0" Grid.Column="0">Stereo</Button>
+			<Button x:DataType="vm:ViewModels.MainViewModel" Grid.Column="1">Audio</Button>
 			<Button Margin="0,0,8,0" Grid.Column="3">10 sec</Button>
 			<Button Margin="0,0,8,0" Grid.Column="4">Continuous</Button>
 			<Rectangle Margin="0,0,8,0" Grid.Column="5" Fill="Orange" Height="30" Width="30"></Rectangle>
