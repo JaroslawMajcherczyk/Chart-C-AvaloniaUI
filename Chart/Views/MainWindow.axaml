@@ -3,204 +3,24 @@
         xmlns:vm="using:Chart.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:controls="clr-namespace:Chart"
-        mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="550"
+		xmlns:controls="clr-namespace:Chart.Views"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="650"
         Width="800" Height="650"
+		xmlns:viewModels="clr-namespace:ViewModels"
+        xmlns:local="clr-namespace:Chart.Views;assembly=Chart"
+
+		WindowStartupLocation="CenterOwner"
 		x:Class="Chart.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
+		x:DataType="local:MainView"
         Icon="/Assets/avalonia-logo.ico"
         Title="Chart">
 
 
-	<Window.Styles>
-		<Style Selector="Button.small">
-			<Setter Property="FontSize" Value="16"></Setter>
-			<Setter Property="FontWeight" Value="Bold"></Setter>
-			<Setter Property="Foreground" Value="White"></Setter>
-			<Setter Property="Background" Value="{DynamicResource BrightBlueBrush}"></Setter>
-			<Setter Property="CornerRadius" Value="20"></Setter>
-			<Setter Property="Padding" Value="7,5"></Setter>
-		</Style>
-		<Style Selector="Button:pointerover /template/ ContentPresenter">
-			<Setter Property="Background" Value="{DynamicResource BrightBlueHoverBrush}"></Setter>
-			<Setter Property="Foreground" Value="White"></Setter>
-
-		</Style>
-	</Window.Styles>
-	
-
-	<Grid RowDefinitions="Auto,*,Auto">
-			<!--Navbar-->
-		<Grid Grid.Row="0" Background="{DynamicResource MidGrayBrush}" Height="40"
-			  ColumnDefinitions="Auto,Auto,*,Auto,Auto">
-
-			<!--Buttons styles in navbar-->
-			<Grid.Styles>
-				<Style Selector="Button">
-					<Setter Property="Background" Value="Transparent"></Setter>
-					<Setter Property="Padding" Value="15"></Setter>
-					<Setter Property="Width" Value="40"></Setter>
-					</Style>
-				<!--Remove defoult hover on button-->
-				<Style Selector="Button:pointerover /template/ ContentPresenter">
-					<!--Transform button with scale 1.2 and animated-->
-					<Setter Property="Transitions">
-						<Transitions>
-							<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2"></TransformOperationsTransition>
-						</Transitions>
-					</Setter>
-					<Setter Property="Background" Value="Transparent" ></Setter>
-					<Setter Property="RenderTransform" Value="scale(1.2)"></Setter>
-					<Setter Property="Opacity" Value="0.6"></Setter>
-				</Style>
-			</Grid.Styles>
-			
-			<Button Grid.Column="0">
-				<PathIcon Background="Transparent"  Data="{StaticResource phone_laptop_regular}" />
-			</Button>
-			<Button Grid.Column="1">
-				<PathIcon Background="Transparent"  Data="{StaticResource textbox_align_top_regular}" />
-			</Button>
-			
-			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2">
-				<Label  FontWeight="Bold">AVALONIA</Label>
-				<Label>LAUDNES METER</Label>
-			</StackPanel>
-			<Button Grid.Column="3">
-				<PathIcon Background="Transparent"  Data="{StaticResource lock_shield_regular}" />
-			</Button>
-			<Button Grid.Column="4">
-				<PathIcon Background="Transparent"  Data="{StaticResource settings_regular}" />
-			</Button>
-
-
-		</Grid>
-			<!--Maincontent-->
-		<Grid Grid.Row="1" Background="{DynamicResource DarkBlueBrush}"
-			  ColumnDefinitions="Auto,Auto,*">
-			
-			
-			<!--Volume Bar-->
-			<Grid RowDefinitions="*,Auto,Auto" Margin="0,20" Width="170">
-				
-				<!--Volume Metter-->
-				<Grid 
-					Grid.Row="0"
-					Margin="10,0"
-					RowDefinitions="3*,3*,3*,9*,5*,4*,9*,9*,9*,6*,Auto" 
-					ColumnDefinitions="Auto,*,Auto,Auto"	
-				>
-					<Grid.Styles>
-						<Style Selector="Label">
-							<Setter Property="FontSize" Value="10"></Setter>
-							<Setter Property="Foreground" Value="White"></Setter>
-							<Setter Property="FontWeight" Value="Bold"></Setter>
-							<Setter Property="HorizontalAlignment" Value="Right"></Setter>
-							<Setter Property="Padding" Value="0"></Setter>
-						</Style>
-					</Grid.Styles>
-					
-					<Label Grid.Column="0" Grid.Row="0"> 0 —</Label>
-					<Label Grid.Column="0"  Grid.Row="1">-3 —</Label>
-					<Label Grid.Column="0"  Grid.Row="2">-6 —</Label>
-					<Label Grid.Column="0"  Grid.Row="3">-9 —</Label>
-					<Label Grid.Column="0"  Grid.Row="4">-18 —</Label>
-					<Label Grid.Column="0"  Grid.Row="5">-23 —</Label>
-					<Label Grid.Column="0"  Grid.Row="6">-27 —</Label>
-					<Label Grid.Column="0"  Grid.Row="7">-36 —</Label>
-					<Label Grid.Column="0"  Grid.Row="8">-45 —</Label>
-					<Label Grid.Column="0"  Grid.Row="9">-54 —</Label>
-					<Label Grid.Column="0"  Grid.Row="10"></Label>
-					
-					<!--Volume Bar-->
-					<Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="11" Width="20"  RowDefinitions="23*,37*">
-						
-						<Rectangle Margin="0,8,0,0" Width="20" Grid.Row="0" Fill="#b05c4e"></Rectangle>
-						<Rectangle Margin="0,0,0,8" Width="20" Grid.Row="1" Fill="White"></Rectangle>
-
-
-						<Canvas Grid.Column="1"	Grid.RowSpan="11" Width="20">	
-						</Canvas>
-					</Grid>
-					
-					<!--Cope-->
-					<Label Grid.Column="2" Grid.Row="0">—</Label>
-					<Label Grid.Column="2"  Grid.Row="1">—</Label>
-					<Label Grid.Column="2"  Grid.Row="2">—</Label>
-					<Label Grid.Column="2"  Grid.Row="3">—</Label>
-					<Label Grid.Column="2"  Grid.Row="4">—</Label>
-					<Label Grid.Column="2"  Grid.Row="5">—</Label>
-					<Label Grid.Column="2"  Grid.Row="6">—</Label>
-					<Label Grid.Column="2"  Grid.Row="7">—</Label>
-					<Label Grid.Column="2"  Grid.Row="8">—</Label>
-					<Label Grid.Column="2"  Grid.Row="9">—</Label>
-					<Label Grid.Column="2"  Grid.Row="10"></Label>
-					
-					<!--Arrow-->
-					<Canvas Grid.Column="3"
-							Grid.RowSpan="11"
-							Width="20"
-							>
-						<Rectangle Canvas.Top="0" Width="20" Height="20" Fill="White"></Rectangle>
-					</Canvas>
-					
-					
-				</Grid>
-				
-				<!--LUFS lable-->
-				<Label Margin="0,5" HorizontalAlignment="Center" Foreground="White" FontSize="20" Grid.Row="1">asdasd</Label>
-				
-				<!--Volume bar buttons-->
-				<StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="2">
-
-					
-
-
-
-					<Button Classes="small" Height="30" Width="30" Foreground="White" Margin="0,0,20,0">
-						<PathIcon Foreground="WhiteSmoke" Background="Transparent" Data="{StaticResource arrow_import_regular}" />
-					
-					</Button>
-					<Button Classes="small">INT-LRA</Button>
-				</StackPanel>
-				
-			</Grid>
-			<!--Details Panel-->
-			<StackPanel Margin="5,0,2,0" Grid.Column="1" Width="170">
-				<controls:LargeLabelControl LargeText="Witam" SmallText="Żegnam" ></controls:LargeLabelControl>
-				<controls:LargeLabelControl Background="{DynamicResource LightBlueBrush}" LargeText="Siemna" SmallText="Nara"></controls:LargeLabelControl>
-				<controls:LargeLabelControl LargeText="Siemna" SmallText="Nara"></controls:LargeLabelControl>
-				<controls:LargeLabelControl LargeText="Siemna" SmallText="Nara"></controls:LargeLabelControl>
-				<controls:LargeLabelControl LargeText="Siemna" SmallText="Nara" Margin="0,0,0,13"></controls:LargeLabelControl>
-
-				<controls:LargeLabelControl Classes="button" LargeText="Siemna" SmallText="Nara"></controls:LargeLabelControl>
-				<controls:LargeLabelControl Classes="button" LargeText="Siemna" SmallText="Nara"></controls:LargeLabelControl>
-				<controls:LargeLabelControl Classes="button" LargeText="Siemna" SmallText="Nara" Margin="0,0,0,5"></controls:LargeLabelControl>
-
-				<!--Extra Buttons-->
-				<StackPanel Margin="0,25,0,0" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="2">
-					<Button HorizontalAlignment="Center" Classes="small" Height="30" Width="60" Foreground="White" Margin="0,0,20,0">
-						Auto
-					</Button>
-					<Button Classes="small" Background="{DynamicResource FadedRedBrush} ">X</Button>
-				</StackPanel>
-			</StackPanel>
-			<!--Graph -->
-			<Rectangle Grid.Column="2"
-					   Fill="Black"
-					   ></Rectangle>
-			
-		</Grid>
-			<!--Footer-->
-		<Grid Margin="8" ColumnDefinitions="Auto,Auto,*,Auto,Auto,Auto,Auto,Auto" Grid.Row="2" Background="White" Height="50">
-			<Button Margin="0,0,8,0" Grid.Column="0">Stereo</Button>
-			<Button Grid.Column="1">Audio</Button>
-			<Button Margin="0,0,8,0" Grid.Column="3">10 sec</Button>
-			<Button Margin="0,0,8,0" Grid.Column="4">Continuous</Button>
-			<Rectangle Margin="0,0,8,0" Grid.Column="5" Fill="Orange" Height="30" Width="30"></Rectangle>
-			<Rectangle Margin="0,0,8,0" Grid.Column="6" Fill="Yellow" Height="30" Width="30"></Rectangle>
-			
-		</Grid>
-	</Grid>
+	<Panel>
+		<Border BorderBrush="Black"
+				BorderThickness="2">
+			<local:MainView/>
+		</Border>
+	</Panel>
 
 </Window>

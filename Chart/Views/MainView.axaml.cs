@@ -1,28 +1,24 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Chart.ViewModels;
 
 namespace Chart.Views;
 
-
-public partial class MainWindow : Window
+public partial class MainView : UserControl
 {
-    public MainWindow()
+    public MainView()
     {
-
         InitializeComponent();
+        
+        DataContext = new MainViewModel();
 
     }
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
+        
+        
     }
 
-    private MainWindowViewModel mvvm;
-    public MainWindowViewModel MVVM
-    {
-        get => mvvm;
-        set => mvvm = value;
-
-    }
 }

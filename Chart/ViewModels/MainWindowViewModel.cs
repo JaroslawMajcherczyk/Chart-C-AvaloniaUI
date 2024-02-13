@@ -1,9 +1,17 @@
-﻿namespace Chart.ViewModels
+﻿using Avalonia.Controls;
+using Chart.Views;
+using ReactiveUI;
+
+namespace Chart.ViewModels;
+
+
+public class MainWindowViewModel : ReactiveObject
 {
-    public class MainWindowViewModel : ViewModelBase
-    {
-#pragma warning disable CA1822 // Mark members as static
-        public string Greeting => "Welcome to Avalonia!";
-#pragma warning restore CA1822 // Mark members as static
-    }
+public Window _mainWindow;
+public MainWindowViewModel(Window mainWindow)
+
+{
+    _mainWindow = mainWindow;
+}
+
 }

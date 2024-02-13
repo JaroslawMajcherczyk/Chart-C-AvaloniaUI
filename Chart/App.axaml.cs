@@ -17,11 +17,21 @@ namespace Chart
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new MainWindow
-                {
-                    DataContext = new MainWindowViewModel(),
-                };
+                MainWindow mainWindow = new MainWindow();
+                MainWindowViewModel MVVM = new MainWindowViewModel(mainWindow);
+
+                mainWindow.DataContext = MVVM;
+                mainWindow.MVVM = MVVM;
+
+                desktop.MainWindow = mainWindow;
+                mainWindow.Show();
             }
+         /*   else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
+            {
+                singleViewPlatform.MainView = new MainWindow
+                {
+                };
+            }*/
 
             base.OnFrameworkInitializationCompleted();
         }
